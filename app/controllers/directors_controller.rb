@@ -45,7 +45,33 @@ class DirectorsController < ApplicationController
     x.bio = params.fetch("director_bio_param")
     x.image = params.fetch("director_image_param")
     x.save
+
+    redirect_to("/directors")
+  end
+
+  def edit
+
+    the_id = params.fetch("path_id")
+    matching_directors = Director.where(:id => the_id)
     
+    x = matching_directors.at(0)
+
+    x.name = params.fetch("director_name_param")
+    x.dob = params.fetch("director_dob_param")
+    x.bio = params.fetch("director_bio_param")
+    x.image = params.fetch("director_image_param")
+    x.save
+    
+    redirect_to("/directors/#{the_id}")
+  end
+
+  def delete
+    the_id = params.fetch("path_id")
+    matching_directors = Director.where(:id => the_id)
+    x = matching_directors.at(0)
+
+    x.destroy
+
     redirect_to("/directors")
   end
 
